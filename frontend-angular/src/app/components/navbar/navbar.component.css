@@ -1,0 +1,23 @@
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navbar-brand i {
+  margin-right: 8px;
+}
+
+.nav-link {
+  margin: 0 10px;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  transform: translateY(-2px);
+}
+
+.nav-link.active {
+  font-weight: bold;
+  border-bottom: 3px solid white;
+}
+

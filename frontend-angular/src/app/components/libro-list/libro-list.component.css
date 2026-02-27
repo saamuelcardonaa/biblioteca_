@@ -1,0 +1,23 @@
+.btn-group {
+  display: flex;
+  gap: 5px;
+}
+
+.table {
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.badge {
+  font-size: 0.85rem;
+  margin-right: 4px;
+}
+
+.pagination .page-link {
+  cursor: pointer;
+}
+
+.spinner-container {
+  min-height: 400px;
+}
+

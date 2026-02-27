@@ -1,0 +1,27 @@
+.jumbotron {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.jumbotron h1 {
+  font-weight: bold;
+}
+
+.card {
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.card i {
+  transition: all 0.3s ease;
+}
+
+.card:hover i {
+  transform: scale(1.2);
+}
+

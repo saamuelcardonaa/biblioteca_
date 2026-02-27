@@ -1,0 +1,21 @@
+.card {
+  border: none;
+}
+
+.card-header {
+  border-radius: 8px 8px 0 0;
+}
+
+img {
+  border: 3px solid #dee2e6;
+}
+
+.table td {
+  padding: 0.5rem 1rem;
+}
+
+.badge {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+}
+
