@@ -71,71 +71,100 @@
     </div>
   </div>
 
-  <!-- Tabla de Libros -->
-  <div class="table-responsive" *ngIf="!loading && libros.length > 0">
-    <table class="table table-striped table-hover">
-      <thead class="table-dark">
-        <tr>
-          <th>ISBN</th>
-          <th>Título</th>
-          <th>Autor</th>
-          <th>Editorial</th>
-          <th>Año</th>
-          <th>Género</th>
-          <th>Precio</th>
-          <th>Stock</th>
-          <th>Estado</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let libro of libros">
-          <td>{{ libro.isbn }}</td>
-          <td><strong>{{ libro.titulo }}</strong></td>
-          <td>{{ libro.autor }}</td>
-          <td>{{ libro.editorial }}</td>
-          <td>{{ libro.anioPublicacion }}</td>
-          <td>
-            <span class="badge bg-info" *ngFor="let genero of libro.generos.slice(0, 2)">
-              {{ genero }}
-            </span>
-          </td>
-          <td>{{ libro.precio | currency:'EUR' }}</td>
-          <td>
-            <span class="badge" [ngClass]="libro.stock > 0 ? 'bg-success' : 'bg-danger'">
-              {{ libro.stock }}
-            </span>
-          </td>
-          <td>
-            <span class="badge" [ngClass]="libro.disponible ? 'bg-success' : 'bg-danger'">
-              {{ libro.disponible ? 'Disponible' : 'No disponible' }}
-            </span>
-          </td>
-          <td>
-            <div class="btn-group" role="group">
+  <!-- Grid de Libros (Catálogo) -->
+  <div class="libros-grid" *ngIf="!loading && libros.length > 0">
+    <div class="row g-4">
+      <div class="col-12 col-sm-6 col-lg-4" *ngFor="let libro of libros">
+        <div class="libro-card h-100">
+          <!-- Card Header con imagen placeholder -->
+          <div class="libro-card-image">
+            <img 
+              [src]="libro.portada || 'https://via.placeholder.com/300x400?text=Sin+Portada'"
+              [alt]="libro.titulo" 
+              class="img-fluid">
+            <div class="libro-card-overlay">
               <button
                 class="btn btn-sm btn-info"
                 (click)="verDetalle(libro._id)"
                 title="Ver detalle">
-                <i class="bi bi-eye"></i>
-              </button>
-              <button
-                class="btn btn-sm btn-warning"
-                (click)="editarLibro(libro._id)"
-                title="Editar">
-                <i class="bi bi-pencil"></i>
-              </button>
-              <button
-                class="btn btn-sm btn-danger"
-                (click)="eliminarLibro(libro._id, libro.titulo)"
-                title="Eliminar">
-                <i class="bi bi-trash"></i>
+                <i class="bi bi-eye"></i> Ver Detalle
               </button>
             </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          </div>
+
+          <!-- Card Body -->
+          <div class="libro-card-body">
+            <!-- Título -->
+            <h5 class="libro-titulo" [title]="libro.titulo">
+              {{ libro.titulo | slice:0:50 }}{{ libro.titulo.length > 50 ? '...' : '' }}
+            </h5>
+
+            <!-- Autor y Editorial -->
+            <p class="libro-autor">
+              <strong>{{ libro.autor }}</strong>
+            </p>
+            <p class="libro-editorial text-muted small">
+              {{ libro.editorial }}
+            </p>
+
+            <!-- Año -->
+            <p class="libro-ano text-muted small mb-3">
+              <i class="bi bi-calendar"></i> {{ libro.anioPublicacion }}
+            </p>
+
+            <!-- Géneros -->
+            <div class="libro-generos mb-3">
+              <span class="badge bg-info" *ngFor="let genero of libro.generos.slice(0, 3)">
+                {{ genero }}
+              </span>
+              <span class="badge bg-secondary" *ngIf="libro.generos.length > 3">
+                +{{ libro.generos.length - 3 }}
+              </span>
+            </div>
+
+            <!-- Separador -->
+            <hr class="my-3">
+
+            <!-- Precio -->
+            <div class="libro-precio mb-3">
+              <span class="precio-valor">{{ libro.precio | currency:'EUR' }}</span>
+            </div>
+
+            <!-- Stock y Disponibilidad -->
+            <div class="libro-estado mb-3">
+              <div class="estado-item">
+                <small class="text-muted">Stock:</small>
+                <span class="badge" [ngClass]="libro.stock > 0 ? 'bg-success' : 'bg-danger'">
+                  {{ libro.stock }} unidades
+                </span>
+              </div>
+              <div class="estado-item">
+                <small class="text-muted">Estado:</small>
+                <span class="badge" [ngClass]="libro.disponible ? 'bg-success' : 'bg-danger'">
+                  {{ libro.disponible ? 'Disponible' : 'No disponible' }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Footer con Acciones -->
+          <div class="libro-card-footer">
+            <button
+              class="btn btn-sm btn-outline-warning flex-grow-1"
+              (click)="editarLibro(libro._id)"
+              title="Editar">
+              <i class="bi bi-pencil"></i> Editar
+            </button>
+            <button
+              class="btn btn-sm btn-outline-danger flex-grow-1"
+              (click)="eliminarLibro(libro._id, libro.titulo)"
+              title="Eliminar">
+              <i class="bi bi-trash"></i> Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Mensaje si no hay libros -->
