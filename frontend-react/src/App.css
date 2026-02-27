@@ -198,6 +198,147 @@ body {
   margin-top: 2rem;
 }
 
+/* ============================================
+   Component-specific helpers & layout
+   ============================================ */
+
+/* Hero section home */
+.hero {
+  background: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
+  color: white;
+  padding: 4rem 0;
+  margin-bottom: 3rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.hero .icon-large {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+.hero h1 {
+  font-size: 2.5rem;
+}
+.hero p.lead {
+  font-size: 1.25rem;
+  opacity: 0.9;
+}
+.hero .btn-hero {
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+}
+
+/* Feature cards on home */
+.feature-section {
+  padding: 4rem 0;
+}
+.feature-card {
+  border: none;
+  box-shadow: var(--shadow-sm);
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: var(--bg-card);
+}
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.feature-card .feature-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  color: white;
+  font-size: 2rem;
+}
+
+/* Filters bar */
+.filters-bar {
+  border-left: 4px solid var(--accent);
+}
+
+/* Book grid */
+.book-grid .book-col {
+  display: flex;
+}
+
+/* Book card custom */
+.book-card {
+  transition: all 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.book-card:hover {
+  transform: translateY(-4px);
+}
+.book-card .cover-container {
+  overflow: hidden;
+  height: 300px;
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.book-card img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+.book-card img:hover {
+  transform: scale(1.05);
+}
+.book-card .card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.book-card .info-row {
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+
+/* Detail layout */
+.detail-page .cover-column {
+  margin-bottom: 2rem;
+}
+.detail-page .info-table th {
+  width: 35%;
+}
+
+/* Form adjustments */
+.form-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.generos-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* Responsive tweaks */
+@media (max-width: 576px) {
+  .hero h1 { font-size: 2rem; }
+  .feature-card .feature-icon { width: 60px; height: 60px; font-size: 1.5rem; }
+}
+
+/* Navbar and footer custom gradient */
+.navbar-custom {
+  background: linear-gradient(135deg, #2C3E50 0%, #1a252f 100%) !important;
+}
+.footer-custom {
+  background: linear-gradient(135deg, #2C3E50 0%, #1a252f 100%);
+  color: var(--text-white);
+  margin-top: auto;
+  box-shadow: 0 -4px 6px rgba(0,0,0,0.1);
+}
+
 .page-link {
   color: var(--primary);
   border: 1px solid var(--border-color);

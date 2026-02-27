@@ -3,12 +3,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer style={{
-      background: 'linear-gradient(135deg, #2C3E50 0%, #1a252f 100%)',
-      color: 'white',
-      marginTop: 'auto',
-      boxShadow: '0 -4px 6px rgba(0,0,0,0.1)'
-    }}>
+    <footer className="footer-custom">
       <div className="container py-5">
         <div className="row g-4">
           {/* Información del proyecto */}

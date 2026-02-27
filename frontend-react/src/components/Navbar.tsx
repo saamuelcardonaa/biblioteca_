@@ -7,9 +7,7 @@ type NavbarProps = {
 
 export default function Navbar(_props: NavbarProps) {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-lg" style={{
-      background: 'linear-gradient(135deg, #2C3E50 0%, #1a252f 100%)'
-    }}>
+    <nav className="navbar navbar-expand-lg navbar-dark navbar-custom sticky-top shadow-lg">
       <div className="container-fluid px-4">
         {/* Logo/Brand */}
         <a className="navbar-brand fw-bold d-flex align-items-center" href="/">

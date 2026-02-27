@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import Loader from './common/Loader'
 import libroService from '../services/libroService'
 import type { Libro } from '../services/libroService'
 
@@ -48,14 +49,7 @@ export default function LibroDetalle() {
   }
 
   if (loading) {
-    return (
-      <div className="container py-5 text-center">
-        <div className="spinner-border text-primary" style={{ width: '3rem', height: '3rem' }} role="status">
-          <span className="visually-hidden">Cargando...</span>
-        </div>
-        <p className="mt-3">Cargando información del libro...</p>
-      </div>
-    )
+    return <Loader text="Cargando información del libro..." />
   }
 
   if (error || !libro) {
@@ -74,7 +68,7 @@ export default function LibroDetalle() {
   }
 
   return (
-    <div className="container py-4">
+    <div className="container py-4 detail-page">
       {/* Botones superiores */}
       <div className="mb-4 d-flex justify-content-between align-items-center">
         <button className="btn btn-secondary" onClick={() => navigate('/libros')}>
@@ -108,26 +102,14 @@ export default function LibroDetalle() {
 
       <div className="row">
         {/* Columna de imagen */}
-        <div className="col-md-4">
+        <div className="col-md-4 cover-column">
           <div className="card shadow-sm mb-4">
             {libro.portada ? (
-              <div style={{
-                backgroundColor: '#f8f9fa',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                minHeight: '500px'
-              }}>
+              <div className="cover-container" style={{ minHeight: '500px' }}>
                 <img
                   src={libro.portada}
                   className="card-img-top"
                   alt={`Portada de ${libro.titulo}`}
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                    maxHeight: '600px',
-                    objectFit: 'contain'
-                  }}
                   onError={(e) => {
                     e.currentTarget.src = 'https://via.placeholder.com/400x600?text=Sin+Portada'
                   }}
@@ -157,7 +139,7 @@ export default function LibroDetalle() {
         {/* Columna de información */}
         <div className="col-md-8">
           <div className="card shadow-sm">
-            <div className="card-header bg-primary text-white">
+            <div className="card-header">
               <h2 className="mb-0">{libro.titulo}</h2>
             </div>
             <div className="card-body">
@@ -187,10 +169,10 @@ export default function LibroDetalle() {
 
               {/* Detalles en tabla */}
               <h6 className="text-muted">Detalles del Libro</h6>
-              <table className="table table-bordered">
+              <table className="table table-bordered info-table">
                 <tbody>
                   <tr>
-                    <th style={{ width: '30%' }}>ISBN</th>
+                    <th>ISBN</th>
                     <td>{libro.isbn}</td>
                   </tr>
                   <tr>
@@ -240,7 +222,7 @@ export default function LibroDetalle() {
                 <table className="table table-sm">
                   <tbody>
                     <tr>
-                      <th style={{ width: '30%' }}>ID</th>
+                      <th>ID</th>
                       <td><code>{libro._id}</code></td>
                     </tr>
                     {libro.createdAt && (

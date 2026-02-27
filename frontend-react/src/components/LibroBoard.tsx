@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import LibroCard from './LibroCard'
+import Loader from './common/Loader'
+import ErrorAlert from './common/ErrorAlert'
+import SuccessAlert from './common/SuccessAlert'
+import EmptyState from './common/EmptyState'
 import libroService from '../services/libroService'
 import type { Libro } from '../services/libroService'
 
@@ -104,39 +108,30 @@ export default function LibroBoard() {
     <div className="container py-4">
       {/* Header */}
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h2>📚 Catálogo de Libros</h2>
+        <h2 className="fw-bold">📚 Catálogo de Libros</h2>
         <button
           className="btn btn-primary"
           onClick={() => navigate('/libros/nuevo')}
         >
-          <i className="bi bi-plus-circle"></i> Agregar Libro
+          <i className="bi bi-plus-circle me-1"></i>Agregar Libro
         </button>
       </div>
 
       {/* Mensajes */}
       {successMessage && (
-        <div className="alert alert-success alert-dismissible fade show" role="alert">
-          {successMessage}
-          <button type="button" className="btn-close" onClick={() => setSuccessMessage(null)}></button>
-        </div>
+        <SuccessAlert message={successMessage} onDismiss={() => setSuccessMessage(null)} />
       )}
 
       {error && (
-        <div className="alert alert-danger alert-dismissible fade show" role="alert">
-          {error}
-          <button type="button" className="btn-close" onClick={() => setError(null)}></button>
-        </div>
+        <ErrorAlert message={error} onDismiss={() => setError(null)} />
       )}
 
       {/* Filtros */}
-      <div className="card mb-4 border-0 shadow-sm" style={{
-        borderLeft: '4px solid var(--accent)'
-      }}>
+      <div className="card mb-4 shadow-sm filters-bar">
         <div className="card-body">
           <div className="d-flex justify-content-between align-items-center mb-3">
             <h5 className="card-title mb-0">
-              <i className="bi bi-funnel-fill me-2"></i>
-              Filtros y Búsqueda
+              <i className="bi bi-funnel-fill me-2"></i>Filtros y Búsqueda
             </h5>
             <span className="badge bg-primary">
               {totalItems} libros encontrados
@@ -239,20 +234,13 @@ export default function LibroBoard() {
 
       {/* Grid de libros */}
       {loading && libros.length === 0 ? (
-        <div className="text-center py-5">
-          <div className="spinner-border text-primary" style={{ width: '3rem', height: '3rem' }} role="status">
-            <span className="visually-hidden">Cargando...</span>
-          </div>
-          <p className="mt-3">Cargando libros...</p>
-        </div>
+        <Loader text=\"Cargando libros...\" />
       ) : libros.length === 0 ? (
-        <div className="alert alert-info text-center">
-          No se encontraron libros con los filtros aplicados.
-        </div>
+        <EmptyState icon=\"bi-inbox\" message=\"No se encontraron libros con los filtros aplicados.\" />
       ) : (
-        <div className="row g-4 mb-4">
+        <div className="row g-4 mb-4 book-grid">
           {libros.map((libro) => (
-            <div key={libro._id} className="col-md-6 col-lg-4">
+            <div key={libro._id} className="col-md-6 col-lg-4 book-col">
               <LibroCard
                 libro={libro}
                 onDelete={handleDelete}

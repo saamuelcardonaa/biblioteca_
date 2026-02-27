@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import type { FormEvent } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import Loader from './common/Loader'
+import ErrorAlert from './common/ErrorAlert'
 import libroService from '../services/libroService'
 import type { LibroCreate } from '../services/libroService'
 
@@ -202,32 +204,22 @@ export default function LibroForm() {
   }
 
   if (loadingData) {
-    return (
-      <div className="container py-5 text-center">
-        <div className="spinner-border text-primary" style={{ width: '3rem', height: '3rem' }} role="status">
-          <span className="visually-hidden">Cargando...</span>
-        </div>
-        <p className="mt-3">Cargando datos del libro...</p>
-      </div>
-    )
+    return <Loader text="Cargando datos del libro..." />
   }
 
   return (
-    <div className="container py-4">
+    <div className="container py-4 form-container">
       <div className="row justify-content-center">
         <div className="col-lg-8">
           <div className="card shadow">
-            <div className="card-header bg-primary text-white">
+            <div className="card-header">
               <h3 className="mb-0">
                 {isEditMode ? '✏️ Editar Libro' : '➕ Agregar Nuevo Libro'}
               </h3>
             </div>
             <div className="card-body">
               {submitError && (
-                <div className="alert alert-danger alert-dismissible fade show" role="alert">
-                  {submitError}
-                  <button type="button" className="btn-close" onClick={() => setSubmitError(null)}></button>
-                </div>
+                <ErrorAlert message={submitError} onDismiss={() => setSubmitError(null)} />
               )}
 
               <form onSubmit={handleSubmit}>
@@ -333,7 +325,7 @@ export default function LibroForm() {
                 {/* Géneros */}
                 <div className="mb-3">
                   <label className="form-label">Géneros * (Máximo 3)</label>
-                  <div className="border rounded p-3" style={{ maxHeight: '200px', overflowY: 'auto' }}>
+                  <div className="border rounded p-3 generos-list">
                     <div className="row g-2">
                       {generosDisponibles.map((genero) => (
                         <div key={genero} className="col-md-4">

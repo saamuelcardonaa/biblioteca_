@@ -12,6 +12,7 @@ import app from './src/app.js';
 import { connectDB } from './src/config/database.js';
 
 const PORT = process.env.PORT || 3000;
+const HOST = '0.0.0.0'; // Render/containers escuchan en cualquier interfaz
 
 const startServer = async () => {
   try {
@@ -19,9 +20,9 @@ const startServer = async () => {
     await connectDB();
     console.log('✅ Conexión a MongoDB exitosa');
 
-    const server = app.listen(PORT, () => {
-      console.log(`\n✅ Servidor corriendo en puerto ${PORT}`);
-      console.log(`📍 http://localhost:${PORT}/api/v1\n`);
+    const server = app.listen(PORT, HOST, () => {
+      console.log(`\n✅ Servidor corriendo en puerto ${PORT} (host ${HOST})`);
+      console.log(`📍 http://${HOST}:${PORT}/api/v1\n`);
     });
 
     // Manejar errores del servidor
@@ -39,13 +40,8 @@ const startServer = async () => {
   }
 };
 
-// Iniciar solo en desarrollo
-if (process.env.NODE_ENV !== 'production') {
-  console.log('🌍 Modo: DESARROLLO');
-  startServer();
-} else {
-  console.log('🌐 Modo: PRODUCCIÓN (Vercel)');
-}
+// Arrancar siempre (se importa el app para serverless o tests)
+startServer();
 
 // Exportar para Vercel
 export default app;
