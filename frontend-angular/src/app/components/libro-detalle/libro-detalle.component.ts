@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LibroService } from '../../services/libro.service';
 import { Libro } from '../../models/libro.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-libro-detalle',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './libro-detalle.component.html',
   styleUrls: ['./libro-detalle.component.css']
 })

@@ -2,9 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LibroService } from '../../services/libro.service';
 import { Libro } from '../../models/libro.model';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-libro-list',
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './libro-list.component.html',
   styleUrls: ['./libro-list.component.css']
 })

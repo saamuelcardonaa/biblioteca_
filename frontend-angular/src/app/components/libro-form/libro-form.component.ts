@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LibroService } from '../../services/libro.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-libro-form',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './libro-form.component.html',
   styleUrls: ['./libro-form.component.css']
 })
