@@ -43,7 +43,7 @@ app.get('/', (req, res) => {
       updateLibro: 'PATCH /api/v1/libros/update/:id',
       deleteLibro: 'DELETE /api/v1/libros/delete/:id',
     },
-    author: 'Luis',
+    author: 'Sam',
     description: 'API REST para gestión de biblioteca con operaciones CRUD completas',
   });
 });

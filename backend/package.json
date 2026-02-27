@@ -16,7 +16,7 @@
     "express",
     "mongodb"
   ],
-  "author": "Luis",
+  "author": "Sam",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",

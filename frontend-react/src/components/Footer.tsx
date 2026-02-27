@@ -83,7 +83,7 @@ export default function Footer() {
           </div>
           <div className="col-md-6 text-center text-md-end">
             <small className="text-white-50">
-              Desarrollado por <strong className="text-white">Luis</strong>
+              Desarrollado por <strong className="text-white">Sam</strong>
             </small>
           </div>
         </div>

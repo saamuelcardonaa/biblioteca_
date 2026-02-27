@@ -18,10 +18,6 @@ Este documento explica cómo probar todos los endpoints de la API de forma local
 
 Abre una terminal en la carpeta `backend`:
 
-```powershell
-cd C:\Users\Luis\IdeaProjects\Biblioteca\backend
-npm start
-```
 
 Deberías ver:
 ```
@@ -33,10 +29,7 @@ Deberías ver:
 
 **Abre otra terminal nueva** (deja la anterior con el servidor corriendo) y ejecuta:
 
-```powershell
-cd C:\Users\Luis\IdeaProjects\Biblioteca\backend
-.\test-endpoints.ps1
-```
+
 
 El script probará automáticamente:
 - ✅ Documentación y Health Check
