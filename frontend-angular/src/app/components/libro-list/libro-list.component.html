@@ -168,8 +168,9 @@
   </div>
 
   <!-- Mensaje si no hay libros -->
-  <div class="alert alert-info" *ngIf="!loading && libros.length === 0">
-    <i class="bi bi-info-circle"></i> No se encontraron libros con los filtros aplicados.
+  <div class="alert-empty" *ngIf="!loading && libros.length === 0">
+    <i class="bi bi-info-circle"></i>
+    <span>No se encontraron libros con los filtros aplicados.</span>
   </div>
 
   <!-- Paginación -->

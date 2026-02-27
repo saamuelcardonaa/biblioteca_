@@ -18,6 +18,11 @@ export class HomeComponent implements OnInit {
   loading: boolean = true;
   error: string = '';
 
+  // helper para iterar en plantilla
+  get generosArray(): string[] {
+    return Array.from(this.generosUnicos);
+  }
+
   constructor(private libroService: LibroService) {}
 
   ngOnInit(): void {

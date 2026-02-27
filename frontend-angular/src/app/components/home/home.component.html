@@ -1,24 +1,20 @@
 <!-- HERO SECTION -->
 <section class="hero-section">
-  <div class="container">
+  <div class="container text-center">
     <div class="hero-content">
       <h1 class="hero-title">
-        <i class="bi bi-book-fill"></i>
-        Biblioteca Premium
+        <i class="bi bi-book"></i>
+        BiblioHub
       </h1>
       <p class="hero-subtitle">
-        Gestiona tu colección de libros con elegancia y precisión
+        Tu catálogo de libros reinventado
       </p>
-      <p class="hero-description">
-        Sistema completo de gestión bibliotecaria con búsqueda avanzada, validaciones en tiempo real 
-        y una experiencia de usuario moderna
-      </p>
-      <div class="hero-buttons mt-5">
+      <div class="hero-buttons mt-4">
         <a class="btn btn-primary btn-lg me-3" routerLink="/libros">
-          <i class="bi bi-journal-text"></i> Explorar Biblioteca
+          <i class="bi bi-journal-text"></i> Explorar Catálogo
         </a>
         <a class="btn btn-success btn-lg" routerLink="/nuevo">
-          <i class="bi bi-plus-circle"></i> Agregar Libro
+          <i class="bi bi-plus-circle"></i> Nuevo Libro
         </a>
       </div>
     </div>
@@ -29,8 +25,8 @@
 <section class="kpis-section">
   <div class="container">
     <div class="section-header text-center mb-5">
-      <h2>Tu Biblioteca en Números</h2>
-      <p class="text-muted">Estadísticas en tiempo real de tu colección</p>
+      <h2>Estadísticas del Catálogo</h2>
+      <p class="text-muted">Datos actualizados sobre tus libros</p>
     </div>
 
     <div *ngIf="loading" class="spinner-container">
@@ -97,12 +93,37 @@
   </div>
 </section>
 
+<!-- EXPLORE BY GENRES -->
+<section class="genres-section">
+  <div class="container">
+    <div class="section-header text-center mb-4">
+      <h2>Explorar por Géneros</h2>
+    </div>
+
+    <div class="d-flex flex-wrap justify-content-center gap-2 mb-5" *ngIf="!loading && generosArray.length">
+      <a *ngFor="let g of generosArray" class="badge badge-lg bg-info text-decoration-none" href="javascript:void(0)">
+        {{ g }}
+      </a>
+    </div>
+
+    <div class="text-center text-muted" *ngIf="!loading && generosArray.length === 0">
+      <p>No hay géneros disponibles aún.</p>
+    </div>
+
+    <div class="text-center" *ngIf="loading">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- HOW IT WORKS SECTION -->
 <section class="how-it-works-section">
   <div class="container">
     <div class="section-header text-center mb-5">
       <h2>Cómo Funciona</h2>
-      <p class="text-muted">Tres simples pasos para gestionar tu biblioteca</p>
+      <p class="text-muted">Tres simples pasos para gestionar tu catálogo</p>
     </div>
 
     <div class="row g-4">
@@ -229,10 +250,10 @@
   <div class="container">
     <div class="cta-content text-center">
       <h2>¿Listo para comenzar?</h2>
-      <p>Explora tu biblioteca o agrega nuevos títulos ahora</p>
+      <p>Explora tu catálogo o agrega nuevos títulos ahora</p>
       <div class="cta-buttons mt-4">
         <a class="btn btn-primary btn-lg me-3" routerLink="/libros">
-          <i class="bi bi-journal-text"></i> Ver Biblioteca Completa
+          <i class="bi bi-journal-text"></i> Ver Catálogo Completo
         </a>
         <a class="btn btn-success btn-lg" routerLink="/nuevo">
           <i class="bi bi-plus-circle"></i> Crear Nuevo Libro

@@ -18,189 +18,196 @@
     <div class="card-body">
       <form [formGroup]="libroForm" (ngSubmit)="onSubmit()">
 
-        <!-- Información Básica -->
-        <h5 class="text-primary mb-3">
-          <i class="bi bi-info-circle"></i> Información Básica
-        </h5>
+        <!-- Información básica en secciones claramente delimitadas -->
+        <fieldset class="form-section">
+          <legend class="form-section-title text-primary mb-3">
+            <i class="bi bi-info-circle"></i> Información Básica
+          </legend>
 
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label class="form-label">ISBN <span class="text-danger">*</span></label>
-            <input
-              type="text"
-              class="form-control"
-              formControlName="isbn"
-              placeholder="Ej: 9788420412146"
-              [class.is-invalid]="libroForm.get('isbn')?.invalid && libroForm.get('isbn')?.touched"
-              [class.is-valid]="libroForm.get('isbn')?.valid && libroForm.get('isbn')?.touched">
-            <div class="invalid-feedback" *ngIf="libroForm.get('isbn')?.invalid && libroForm.get('isbn')?.touched">
-              {{ getErrorMessage('isbn') }}
-            </div>
-          </div>
-
-          <div class="col-md-6 mb-3">
-            <label class="form-label">Título <span class="text-danger">*</span></label>
-            <input
-              type="text"
-              class="form-control"
-              formControlName="titulo"
-              placeholder="Ej: Don Quijote de la Mancha"
-              [class.is-invalid]="libroForm.get('titulo')?.invalid && libroForm.get('titulo')?.touched"
-              [class.is-valid]="libroForm.get('titulo')?.valid && libroForm.get('titulo')?.touched">
-            <div class="invalid-feedback" *ngIf="libroForm.get('titulo')?.invalid && libroForm.get('titulo')?.touched">
-              {{ getErrorMessage('titulo') }}
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label class="form-label">Autor <span class="text-danger">*</span></label>
-            <input
-              type="text"
-              class="form-control"
-              formControlName="autor"
-              placeholder="Ej: Miguel de Cervantes"
-              [class.is-invalid]="libroForm.get('autor')?.invalid && libroForm.get('autor')?.touched"
-              [class.is-valid]="libroForm.get('autor')?.valid && libroForm.get('autor')?.touched">
-            <div class="invalid-feedback" *ngIf="libroForm.get('autor')?.invalid && libroForm.get('autor')?.touched">
-              {{ getErrorMessage('autor') }}
-            </div>
-          </div>
-
-          <div class="col-md-6 mb-3">
-            <label class="form-label">Editorial <span class="text-danger">*</span></label>
-            <input
-              type="text"
-              class="form-control"
-              formControlName="editorial"
-              placeholder="Ej: Editorial Planeta"
-              [class.is-invalid]="libroForm.get('editorial')?.invalid && libroForm.get('editorial')?.touched"
-              [class.is-valid]="libroForm.get('editorial')?.valid && libroForm.get('editorial')?.touched">
-            <div class="invalid-feedback" *ngIf="libroForm.get('editorial')?.invalid && libroForm.get('editorial')?.touched">
-              {{ getErrorMessage('editorial') }}
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Año de Publicación <span class="text-danger">*</span></label>
-            <input
-              type="number"
-              class="form-control"
-              formControlName="anioPublicacion"
-              placeholder="Ej: 2023"
-              [class.is-invalid]="libroForm.get('anioPublicacion')?.invalid && libroForm.get('anioPublicacion')?.touched"
-              [class.is-valid]="libroForm.get('anioPublicacion')?.valid && libroForm.get('anioPublicacion')?.touched">
-            <div class="invalid-feedback" *ngIf="libroForm.get('anioPublicacion')?.invalid && libroForm.get('anioPublicacion')?.touched">
-              {{ getErrorMessage('anioPublicacion') }}
-            </div>
-          </div>
-
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Número de Páginas <span class="text-danger">*</span></label>
-            <input
-              type="number"
-              class="form-control"
-              formControlName="numeroPaginas"
-              placeholder="Ej: 350"
-              [class.is-invalid]="libroForm.get('numeroPaginas')?.invalid && libroForm.get('numeroPaginas')?.touched"
-              [class.is-valid]="libroForm.get('numeroPaginas')?.valid && libroForm.get('numeroPaginas')?.touched">
-            <div class="invalid-feedback" *ngIf="libroForm.get('numeroPaginas')?.invalid && libroForm.get('numeroPaginas')?.touched">
-              {{ getErrorMessage('numeroPaginas') }}
-            </div>
-          </div>
-
-          <div class="col-md-4 mb-3">
-            <label class="form-label">Idioma <span class="text-danger">*</span></label>
-            <select
-              class="form-select"
-              formControlName="idioma"
-              [class.is-invalid]="libroForm.get('idioma')?.invalid && libroForm.get('idioma')?.touched"
-              [class.is-valid]="libroForm.get('idioma')?.valid && libroForm.get('idioma')?.touched">
-              <option *ngFor="let idioma of idiomasDisponibles" [value]="idioma">
-                {{ idioma | titlecase }}
-              </option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Géneros -->
-        <h5 class="text-primary mb-3 mt-4">
-          <i class="bi bi-tags"></i> Géneros <span class="text-danger">*</span>
-        </h5>
-        <div class="row mb-3">
-          <div class="col-md-3" *ngFor="let genero of generosDisponibles">
-            <div class="form-check">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">ISBN <span class="text-danger">*</span></label>
               <input
-                class="form-check-input"
-                type="checkbox"
-                [id]="genero"
-                [checked]="isGeneroSelected(genero)"
-                (change)="onGeneroChange($event, genero)">
-              <label class="form-check-label" [for]="genero">
-                {{ genero }}
-              </label>
+                type="text"
+                class="form-control"
+                formControlName="isbn"
+                placeholder="Ej: 9788420412146"
+                [class.is-invalid]="libroForm.get('isbn')?.invalid && libroForm.get('isbn')?.touched"
+                [class.is-valid]="libroForm.get('isbn')?.valid && libroForm.get('isbn')?.touched">
+              <div class="invalid-feedback" *ngIf="libroForm.get('isbn')?.invalid && libroForm.get('isbn')?.touched">
+                {{ getErrorMessage('isbn') }}
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Título <span class="text-danger">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="titulo"
+                placeholder="Ej: Don Quijote de la Mancha"
+                [class.is-invalid]="libroForm.get('titulo')?.invalid && libroForm.get('titulo')?.touched"
+                [class.is-valid]="libroForm.get('titulo')?.valid && libroForm.get('titulo')?.touched">
+              <div class="invalid-feedback" *ngIf="libroForm.get('titulo')?.invalid && libroForm.get('titulo')?.touched">
+                {{ getErrorMessage('titulo') }}
+              </div>
             </div>
           </div>
-        </div>
-        <div class="text-danger small" *ngIf="generosFormArray.invalid && generosFormArray.touched">
-          Selecciona al menos un género.
-        </div>
 
-        <!-- Descripción -->
-        <div class="mb-3 mt-4">
-          <label class="form-label">Descripción <span class="text-danger">*</span></label>
-          <textarea
-            class="form-control"
-            formControlName="descripcion"
-            rows="4"
-            placeholder="Descripción del libro..."
-            [class.is-invalid]="libroForm.get('descripcion')?.invalid && libroForm.get('descripcion')?.touched"
-            [class.is-valid]="libroForm.get('descripcion')?.valid && libroForm.get('descripcion')?.touched"></textarea>
-          <div class="invalid-feedback" *ngIf="libroForm.get('descripcion')?.invalid && libroForm.get('descripcion')?.touched">
-            {{ getErrorMessage('descripcion') }}
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Autor <span class="text-danger">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="autor"
+                placeholder="Ej: Miguel de Cervantes"
+                [class.is-invalid]="libroForm.get('autor')?.invalid && libroForm.get('autor')?.touched"
+                [class.is-valid]="libroForm.get('autor')?.valid && libroForm.get('autor')?.touched">
+              <div class="invalid-feedback" *ngIf="libroForm.get('autor')?.invalid && libroForm.get('autor')?.touched">
+                {{ getErrorMessage('autor') }}
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Editorial <span class="text-danger">*</span></label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="editorial"
+                placeholder="Ej: Editorial Planeta"
+                [class.is-invalid]="libroForm.get('editorial')?.invalid && libroForm.get('editorial')?.touched"
+                [class.is-valid]="libroForm.get('editorial')?.valid && libroForm.get('editorial')?.touched">
+              <div class="invalid-feedback" *ngIf="libroForm.get('editorial')?.invalid && libroForm.get('editorial')?.touched">
+                {{ getErrorMessage('editorial') }}
+              </div>
+            </div>
           </div>
-        </div>
 
-        <!-- Precio y Stock -->
-        <h5 class="text-primary mb-3 mt-4">
-          <i class="bi bi-cash-coin"></i> Precio y Disponibilidad
-        </h5>
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label class="form-label">Precio (€) <span class="text-danger">*</span></label>
-            <input
-              type="number"
-              step="0.01"
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Año de Publicación <span class="text-danger">*</span></label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="anioPublicacion"
+                placeholder="Ej: 2023"
+                [class.is-invalid]="libroForm.get('anioPublicacion')?.invalid && libroForm.get('anioPublicacion')?.touched"
+                [class.is-valid]="libroForm.get('anioPublicacion')?.valid && libroForm.get('anioPublicacion')?.touched">
+              <div class="invalid-feedback" *ngIf="libroForm.get('anioPublicacion')?.invalid && libroForm.get('anioPublicacion')?.touched">
+                {{ getErrorMessage('anioPublicacion') }}
+              </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Número de Páginas <span class="text-danger">*</span></label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="numeroPaginas"
+                placeholder="Ej: 350"
+                [class.is-invalid]="libroForm.get('numeroPaginas')?.invalid && libroForm.get('numeroPaginas')?.touched"
+                [class.is-valid]="libroForm.get('numeroPaginas')?.valid && libroForm.get('numeroPaginas')?.touched">
+              <div class="invalid-feedback" *ngIf="libroForm.get('numeroPaginas')?.invalid && libroForm.get('numeroPaginas')?.touched">
+                {{ getErrorMessage('numeroPaginas') }}
+              </div>
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Idioma <span class="text-danger">*</span></label>
+              <select
+                class="form-select"
+                formControlName="idioma"
+                [class.is-invalid]="libroForm.get('idioma')?.invalid && libroForm.get('idioma')?.touched"
+                [class.is-valid]="libroForm.get('idioma')?.valid && libroForm.get('idioma')?.touched">
+                <option *ngFor="let idioma of idiomasDisponibles" [value]="idioma">
+                  {{ idioma | titlecase }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section mt-4">
+          <legend class="form-section-title text-primary mb-3">
+            <i class="bi bi-tags"></i> Géneros <span class="text-danger">*</span>
+          </legend>
+          <div class="row mb-3">
+            <div class="col-md-3" *ngFor="let genero of generosDisponibles">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  [id]="genero"
+                  [checked]="isGeneroSelected(genero)"
+                  (change)="onGeneroChange($event, genero)">
+                <label class="form-check-label" [for]="genero">
+                  {{ genero }}
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="text-danger small" *ngIf="generosFormArray.invalid && generosFormArray.touched">
+            Selecciona al menos un género.
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section mt-4">
+          <legend class="form-section-title text-primary mb-3">
+            <i class="bi bi-card-text"></i> Descripción <span class="text-danger">*</span>
+          </legend>
+          <div class="mb-3">
+            <label class="form-label">Descripción <span class="text-danger">*</span></label>
+            <textarea
               class="form-control"
-              formControlName="precio"
-              placeholder="Ej: 19.99"
-              [class.is-invalid]="libroForm.get('precio')?.invalid && libroForm.get('precio')?.touched"
-              [class.is-valid]="libroForm.get('precio')?.valid && libroForm.get('precio')?.touched">
-            <div class="invalid-feedback" *ngIf="libroForm.get('precio')?.invalid && libroForm.get('precio')?.touched">
-              {{ getErrorMessage('precio') }}
+              formControlName="descripcion"
+              rows="4"
+              placeholder="Descripción del libro..."
+              [class.is-invalid]="libroForm.get('descripcion')?.invalid && libroForm.get('descripcion')?.touched"
+              [class.is-valid]="libroForm.get('descripcion')?.valid && libroForm.get('descripcion')?.touched"></textarea>
+            <div class="invalid-feedback" *ngIf="libroForm.get('descripcion')?.invalid && libroForm.get('descripcion')?.touched">
+              {{ getErrorMessage('descripcion') }}
             </div>
           </div>
+        </fieldset>
 
-          <div class="col-md-6 mb-3">
-            <label class="form-label">Stock <span class="text-danger">*</span></label>
-            <input
-              type="number"
-              class="form-control"
-              formControlName="stock"
-              placeholder="Ej: 50"
-              [class.is-invalid]="libroForm.get('stock')?.invalid && libroForm.get('stock')?.touched"
-              [class.is-valid]="libroForm.get('stock')?.valid && libroForm.get('stock')?.touched">
-            <div class="invalid-feedback" *ngIf="libroForm.get('stock')?.invalid && libroForm.get('stock')?.touched">
-              {{ getErrorMessage('stock') }}
+        <fieldset class="form-section mt-4">
+          <legend class="form-section-title text-primary mb-3">
+            <i class="bi bi-cash-coin"></i> Precio y Disponibilidad
+          </legend>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Precio (€) <span class="text-danger">*</span></label>
+              <input
+                type="number"
+                step="0.01"
+                class="form-control"
+                formControlName="precio"
+                placeholder="Ej: 19.99"
+                [class.is-invalid]="libroForm.get('precio')?.invalid && libroForm.get('precio')?.touched"
+                [class.is-valid]="libroForm.get('precio')?.valid && libroForm.get('precio')?.touched">
+              <div class="invalid-feedback" *ngIf="libroForm.get('precio')?.invalid && libroForm.get('precio')?.touched">
+                {{ getErrorMessage('precio') }}
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Stock <span class="text-danger">*</span></label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="stock"
+                placeholder="Ej: 50"
+                [class.is-invalid]="libroForm.get('stock')?.invalid && libroForm.get('stock')?.touched"
+                [class.is-valid]="libroForm.get('stock')?.valid && libroForm.get('stock')?.touched">
+              <div class="invalid-feedback" *ngIf="libroForm.get('stock')?.invalid && libroForm.get('stock')?.touched">
+                {{ getErrorMessage('stock') }}
+              </div>
             </div>
           </div>
-        </div>
+        </fieldset>
 
         <!-- Portada (Opcional) -->
-        <div class="mb-3">
+        <div class="mb-3 mt-4">
           <label class="form-label">URL de la Portada (Opcional)</label>
           <input
             type="text"

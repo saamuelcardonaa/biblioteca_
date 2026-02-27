@@ -1,5 +1,5 @@
 /* ============================================
-   BIBLIOTECA PREMIUM - SISTEMA GLOBAL CSS
+   BIBLIOHUB PREMIUM - SISTEMA GLOBAL CSS
    ============================================ */
 
 /* Paleta de colores */
@@ -124,6 +124,36 @@ nav, .navbar {
   background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
   box-shadow: var(--shadow-md);
   padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 2000;
+}
+
+/* Navbar search box */
+.navbar .form-control.search-input {
+  width: 180px;
+  transition: width 0.3s ease;
+}
+
+.navbar .form-control.search-input:focus {
+  width: 240px;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+/* Override default link colors for better contrast */
+.nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--primary-accent) !important;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0.375rem;
 }
 
 .navbar-brand {

@@ -1,13 +1,18 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
-    <a class="navbar-brand" routerLink="/">
-      <i class="bi bi-book"></i> Biblioteca
+    <a class="navbar-brand d-flex align-items-center" routerLink="/">
+      <i class="bi bi-book"></i>
+      <span class="ms-2">BiblioHub</span>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
+      <form class="d-flex ms-auto me-3" role="search">
+        <input class="form-control me-2 search-input" type="search" placeholder="Buscar libros..." aria-label="Search">
+        <!-- opcionalmente un botón de búsqueda icon -->
+      </form>
+      <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
             <i class="bi bi-house-door"></i> Inicio
@@ -15,11 +20,11 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/libros" routerLinkActive="active">
-            <i class="bi bi-journal-text"></i> Libros
+            <i class="bi bi-journal-text"></i> Catálogo
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/nuevo" routerLinkActive="active">
+          <a class="btn btn-success btn-sm" routerLink="/nuevo">
             <i class="bi bi-plus-circle"></i> Nuevo Libro
           </a>
         </li>
