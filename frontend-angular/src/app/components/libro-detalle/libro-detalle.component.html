@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container mt-4 mb-5">
   <!-- Loading Spinner -->
   <div class="spinner-container" *ngIf="loading">
     <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
@@ -13,119 +13,121 @@
   </div>
 
   <!-- Detalle del Libro -->
-  <div *ngIf="!loading && libro">
-    <div class="mb-3">
-      <button class="btn btn-secondary" (click)="volver()">
-        <i class="bi bi-arrow-left"></i> Volver
+  <div *ngIf="!loading && libro" class="detalle-container">
+    <!-- Botón Volver -->
+    <div class="mb-4">
+      <button class="btn btn-outline-secondary" (click)="volver()">
+        <i class="bi bi-arrow-left"></i> Volver al Catálogo
       </button>
     </div>
 
-    <div class="card shadow-lg">
-      <div class="card-header bg-primary text-white">
-        <h3 class="mb-0">
-          <i class="bi bi-book"></i> {{ libro.titulo }}
-        </h3>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <!-- Imagen del libro -->
-          <div class="col-md-4">
-            <div class="text-center mb-3">
-              <img
-                [src]="libro.portada || 'https://via.placeholder.com/300x400?text=Sin+Portada'"
-                [alt]="libro.titulo"
-                class="img-fluid rounded shadow"
-                style="max-height: 400px; object-fit: cover;">
-            </div>
-            <div class="d-grid gap-2">
-              <button class="btn btn-warning" (click)="editar()">
-                <i class="bi bi-pencil"></i> Editar
-              </button>
-              <button class="btn btn-danger" (click)="eliminar()">
-                <i class="bi bi-trash"></i> Eliminar
-              </button>
-            </div>
+    <!-- Main Content -->
+    <div class="row g-5">
+      <!-- LEFT COLUMN: Imagen y Acciones -->
+      <div class="col-lg-5">
+        <div class="libro-detalle-imagen">
+          <img
+            [src]="libro.portada || 'https://via.placeholder.com/400x600?text=Sin+Portada'"
+            [alt]="libro.titulo"
+            class="img-fluid rounded-lg shadow-lg">
+        </div>
+
+        <!-- Botones de Acción -->
+        <div class="libro-acciones mt-4">
+          <button class="btn btn-lg btn-warning d-flex align-items-center justify-content-center w-100 mb-2" (click)="editar()">
+            <i class="bi bi-pencil-square me-2"></i> Editar Libro
+          </button>
+          <button class="btn btn-lg btn-danger d-flex align-items-center justify-content-center w-100" (click)="eliminar()">
+            <i class="bi bi-trash me-2"></i> Eliminar
+          </button>
+        </div>
+
+        <!-- Quick Info Cards -->
+        <div class="quick-info mt-4">
+          <div class="quick-info-item">
+            <div class="quick-info-label">Precio</div>
+            <div class="quick-info-value">{{ libro.precio | currency:'EUR' }}</div>
           </div>
-
-          <!-- Información del libro -->
-          <div class="col-md-8">
-            <h5 class="text-primary">Información Básica</h5>
-            <table class="table table-borderless">
-              <tbody>
-                <tr>
-                  <td><strong><i class="bi bi-upc-scan"></i> ISBN:</strong></td>
-                  <td>{{ libro.isbn }}</td>
-                </tr>
-                <tr>
-                  <td><strong><i class="bi bi-person"></i> Autor:</strong></td>
-                  <td>{{ libro.autor }}</td>
-                </tr>
-                <tr>
-                  <td><strong><i class="bi bi-building"></i> Editorial:</strong></td>
-                  <td>{{ libro.editorial }}</td>
-                </tr>
-                <tr>
-                  <td><strong><i class="bi bi-calendar"></i> Año de Publicación:</strong></td>
-                  <td>{{ libro.anioPublicacion }}</td>
-                </tr>
-                <tr>
-                  <td><strong><i class="bi bi-translate"></i> Idioma:</strong></td>
-                  <td>{{ libro.idioma }}</td>
-                </tr>
-                <tr>
-                  <td><strong><i class="bi bi-file-text"></i> Páginas:</strong></td>
-                  <td>{{ libro.numeroPaginas }}</td>
-                </tr>
-              </tbody>
-            </table>
-
-            <h5 class="text-primary mt-4">Géneros</h5>
-            <div class="mb-3">
-              <span class="badge bg-info me-2" *ngFor="let genero of libro.generos">
-                {{ genero }}
+          <div class="quick-info-item">
+            <div class="quick-info-label">Stock</div>
+            <div class="quick-info-value">
+              <span class="badge" [ngClass]="libro.stock > 0 ? 'bg-success' : 'bg-danger'">
+                {{ libro.stock }} unidades
               </span>
             </div>
-
-            <h5 class="text-primary mt-4">Descripción</h5>
-            <p class="text-muted">{{ libro.descripcion }}</p>
-
-            <h5 class="text-primary mt-4">Disponibilidad y Precio</h5>
-            <table class="table table-borderless">
-              <tbody>
-                <tr>
-                  <td><strong><i class="bi bi-currency-euro"></i> Precio:</strong></td>
-                  <td><h4 class="text-success mb-0">{{ libro.precio | currency:'EUR' }}</h4></td>
-                </tr>
-                <tr>
-                  <td><strong><i class="bi bi-box"></i> Stock:</strong></td>
-                  <td>
-                    <span class="badge" [ngClass]="libro.stock > 0 ? 'bg-success' : 'bg-danger'">
-                      {{ libro.stock }} unidades
-                    </span>
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong><i class="bi bi-check-circle"></i> Estado:</strong></td>
-                  <td>
-                    <span class="badge" [ngClass]="libro.disponible ? 'bg-success' : 'bg-danger'">
-                      {{ libro.disponible ? 'Disponible' : 'No disponible' }}
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-
-            <div class="text-muted small mt-4">
-              <p class="mb-1">
-                <i class="bi bi-calendar-plus"></i> Creado:
-                {{ libro.createdAt | date:'dd/MM/yyyy HH:mm' }}
-              </p>
-              <p class="mb-0" *ngIf="libro.updatedAt">
-                <i class="bi bi-calendar-check"></i> Última actualización:
-                {{ libro.updatedAt | date:'dd/MM/yyyy HH:mm' }}
-              </p>
+          </div>
+          <div class="quick-info-item">
+            <div class="quick-info-label">Estado</div>
+            <div class="quick-info-value">
+              <span class="badge" [ngClass]="libro.disponible ? 'bg-success' : 'bg-danger'">
+                {{ libro.disponible ? 'Disponible' : 'No disponible' }}
+              </span>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: Información Detallada -->
+      <div class="col-lg-7">
+        <!-- Título y Autor -->
+        <div class="mb-4">
+          <h1 class="libro-titulo mb-2">{{ libro.titulo }}</h1>
+          <p class="libro-autor">Por <strong>{{ libro.autor }}</strong></p>
+          <p class="libro-editorial text-muted mb-0">
+            <i class="bi bi-building"></i> {{ libro.editorial }}
+          </p>
+        </div>
+
+        <!-- Géneros -->
+        <div class="mb-4">
+          <h6 class="section-label">Géneros</h6>
+          <div class="generos-container">
+            <span class="badge badge-lg bg-info" *ngFor="let genero of libro.generos">
+              {{ genero }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <hr class="my-4">
+
+        <!-- Descripción -->
+        <div class="mb-4">
+          <h6 class="section-label">Descripción</h6>
+          <p class="descripcion-texto">{{ libro.descripcion }}</p>
+        </div>
+
+        <!-- Información Técnica -->
+        <div class="mb-4">
+          <h6 class="section-label">Información Técnica</h6>
+          <div class="info-grid">
+            <div class="info-item">
+              <span class="info-label"><i class="bi bi-upc-scan"></i> ISBN</span>
+              <span class="info-value">{{ libro.isbn }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label"><i class="bi bi-calendar"></i> Año</span>
+              <span class="info-value">{{ libro.anioPublicacion }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label"><i class="bi bi-translate"></i> Idioma</span>
+              <span class="info-value">{{ libro.idioma | titlecase }}</span>
+            </div>
+            <div class="info-item">
+              <span class="info-label"><i class="bi bi-file-text"></i> Páginas</span>
+              <span class="info-value">{{ libro.numeroPaginas }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Metadata -->
+        <div class="metadata-info">
+          <small class="text-muted d-block mb-1">
+            <i class="bi bi-calendar-plus"></i> Creado: {{ libro.createdAt | date:'dd/MM/yyyy HH:mm' }}
+          </small>
+          <small class="text-muted d-block" *ngIf="libro.updatedAt">
+            <i class="bi bi-calendar-check"></i> Última actualización: {{ libro.updatedAt | date:'dd/MM/yyyy HH:mm' }}
+          </small>
         </div>
       </div>
     </div>
