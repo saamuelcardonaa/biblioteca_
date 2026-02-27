@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import mongoose from 'mongoose';
 import libroRoutes from './routes/libroRoutes.js';
 import { errorHandler, notFound } from './middlewares/errorHandler.js';
 
@@ -28,21 +27,6 @@ app.options('*', cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Middleware para conectar a MongoDB sin bloquear
-app.use(async (req, res, next) => {
-  try {
-    if (mongoose.connection.readyState !== 1) {
-      await mongoose.connect(process.env.MONGODB_URI, {
-        serverSelectionTimeoutMS: 5000,
-        socketTimeoutMS: 30000,
-      });
-    }
-  } catch (error) {
-    console.error('[DB Middleware] Error:', error.message);
-    // NO bloquear, continuar igual
-  }
-  next();
-});
 
 // Rutas
 app.get('/', (req, res) => {

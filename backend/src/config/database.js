@@ -1,13 +1,18 @@
 import mongoose from 'mongoose';
 
+// Cache global para entornos serverless (Vercel)
+let cached = global.mongoose;
+
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
 /**
- * Conexión a MongoDB usando Mongoose
+ * Conexión a MongoDB usando Mongoose (serverless-friendly)
  */
 export const connectDB = async () => {
-  // Si ya está conectado, no hacer nada
-  if (mongoose.connection.readyState === 1) {
-    console.log('✅ MongoDB ya está conectado');
-    return;
+  if (cached.conn) {
+    return cached.conn;
   }
 
   if (!process.env.MONGODB_URI) {
@@ -15,34 +20,25 @@ export const connectDB = async () => {
     throw new Error('MONGODB_URI is not defined');
   }
 
-  try {
+  if (!cached.promise) {
     console.log('🔄 Conectando a MongoDB...');
 
-    const conn = await mongoose.connect(process.env.MONGODB_URI, {
+    cached.promise = mongoose.connect(process.env.MONGODB_URI, {
       serverSelectionTimeoutMS: 5000,
       socketTimeoutMS: 45000,
       retryWrites: true,
-    });
+    }).then((mongooseInstance) => mongooseInstance);
+  }
 
-    console.log(`✅ MongoDB conectado: ${conn.connection.host}`);
-    console.log(`📚 Base de datos: ${conn.connection.name}`);
-    return conn;
+  try {
+    cached.conn = await cached.promise;
+    console.log(`✅ MongoDB conectado: ${cached.conn.connection.host}`);
+    console.log(`📚 Base de datos: ${cached.conn.connection.name}`);
+    return cached.conn;
   } catch (error) {
+    cached.promise = null;
     console.error(`❌ Error de conexión MongoDB: ${error.message}`);
     throw error;
   }
 };
-
-// Eventos de conexión
-mongoose.connection.on('connected', () => {
-  console.log('🔗 Mongoose conectado a MongoDB');
-});
-
-mongoose.connection.on('error', (err) => {
-  console.error('❌ Error de Mongoose:', err.message);
-});
-
-mongoose.connection.on('disconnected', () => {
-  console.log('🔌 Mongoose desconectado de MongoDB');
-});
 
